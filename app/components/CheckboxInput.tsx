@@ -2,18 +2,23 @@ import React from 'react';
 
 interface CheckboxInputProps {
   label: string;
-  checked: boolean;
-  setChecked: (checked: boolean) => void;
+  value: number;
+  setTime: (time: number) => void;
 }
 
-const CheckboxInput: React.FC<CheckboxInputProps> = ({ label, checked, setChecked }) => {
+const CheckboxInput: React.FC<CheckboxInputProps> = ({ label, value, setTime }) => {
   return (
     <label>
-      {label}
+      {label}{value}: 
       <input
         type="checkbox"
-        checked={checked}
-        onChange={(e) => setChecked(e.target.checked)}
+        onChange={(e) => {
+          if (e.target.checked) {
+            setTime(value)
+          } else {
+            setTime(0)
+          }
+        }}
       />
     </label>
   );
