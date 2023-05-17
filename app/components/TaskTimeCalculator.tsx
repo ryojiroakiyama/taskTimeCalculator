@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from 'react';
-import TimeButton from './TimeButton';
 import { findNearestFibonacci } from '../utils/fibonacci';
+import TimeButton from './TimeButton';
 import styles from './button.module.css'
 
 // initial values
