@@ -5,16 +5,25 @@ import TimeButton from './TimeButton';
 import CheckboxInput from './CheckboxInput';
 import { findNearestFibonacci } from '../utils/fibonacci';
 
+const designDefaultTime = 1;
+const testDefaultTime = 2;
+
+const additionalTimes = [
+  { label: "Buffer (error & refactoring)", value: 1, default: true },
+  { label: "Design", value: 2, default: false },
+  { label: "Research", value: 2, default: false },
+  { label: "Test", value: 1, default: false },
+]
+// TODO: 共通スタイルでラベルの幅を揃える
+
+const roughTimesCount = 20;
+
 const TaskTimeCalculator: React.FC = () => {
-  const [estimatedTime, setEstimatedTime] = useState<number>(0);
+  const [roughEstimateTime, setRoughEstimateTime] = useState<number>(0);
   const [designTime, setDesignTime] = useState<number>(0);
   const [testTime, setTestTime] = useState<number>(0);
 
-  const designDefaultTime = 1;
-  const testDefaultTime = 2;
-
-  const totalTime = estimatedTime + designTime + testTime;
-  console.log(estimatedTime);
+  const totalTime = roughEstimateTime + designTime + testTime;
   const nearestFibonacci = findNearestFibonacci(totalTime);
 
   return (
@@ -22,8 +31,12 @@ const TaskTimeCalculator: React.FC = () => {
       <div>
         <label>予想時間: </label>
         <div style={{display: "flex", flexDirection: "row"}}>
-          {Array.from({ length: 20 }, (_, i) => i + 1).map((value) => (
-            <TimeButton key={value} label={value.toString()} value={value} estimatedTime={estimatedTime} setTime={setEstimatedTime} />
+          {Array.from({ length: roughTimesCount }, (_, i) => i + 1).map((value) => (
+            <TimeButton
+              key={value}
+              label={value.toString()}
+              value={value}
+              setTime={setRoughEstimateTime} />
           ))}
         </div>
       </div>
