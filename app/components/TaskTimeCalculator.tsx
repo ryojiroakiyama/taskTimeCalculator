@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import TimeButton from './TimeButton';
-import CheckboxInput from './CheckboxInput';
 import { findNearestFibonacci } from '../utils/fibonacci';
 import styles from './button.module.css'
 
@@ -14,8 +13,6 @@ const initialAdditionalElements = [
   { label: "Research", value: 2, active: false },
   { label: "Test", value: 1, active: false },
 ]
-
-// TODO: リンター使う
 
 const TaskTimeCalculator: React.FC = () => {
   const [roughEstimateTime, setRoughEstimateTime] = useState<number>(0);
