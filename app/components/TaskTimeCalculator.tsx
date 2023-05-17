@@ -15,6 +15,7 @@ const additionalTimes = [
   { label: "Test", value: 1, default: false },
 ]
 // TODO: 共通スタイルでラベルの幅を揃える
+// TODO: リンター使う
 
 const roughTimesCount = 20;
 
