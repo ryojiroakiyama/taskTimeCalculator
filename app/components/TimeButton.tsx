@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styles from './button.module.css'
 
 interface TimeButtonProps {
   label: string;
@@ -17,7 +18,7 @@ const TimeButton: React.FC<TimeButtonProps> = ({ label, value, setTime }) => {
   const backgroundColor = isActive ? "orange" : "white";
 
   return (
-    <div onClick={handleClick} style={{margin: "10px", backgroundColor, height: "30px", width: "30px", color: "black", display: "flex", justifyContent: "center", alignItems: "center"}}>
+    <div onClick={handleClick} className={styles.size} style={{backgroundColor, color: "black", display: "flex", justifyContent: "center", alignItems: "center"}}>
       {label}
     </div>
   );

@@ -4,34 +4,38 @@ import React, { useState } from 'react';
 import TimeButton from './TimeButton';
 import CheckboxInput from './CheckboxInput';
 import { findNearestFibonacci } from '../utils/fibonacci';
+import styles from './button.module.css'
 
-const designDefaultTime = 1;
-const testDefaultTime = 2;
-
-const additionalTimes = [
-  { label: "Buffer (error & refactoring)", value: 1, default: true },
-  { label: "Design", value: 2, default: false },
-  { label: "Research", value: 2, default: false },
-  { label: "Test", value: 1, default: false },
+// initial values
+const roughTimesCount = 15;
+const initialAdditionalElements = [
+  { label: "Buffer (error & refactoring)", value: 1, active: true },
+  { label: "Design", value: 2, active: false },
+  { label: "Research", value: 2, active: false },
+  { label: "Test", value: 1, active: false },
 ]
-// TODO: 共通スタイルでラベルの幅を揃える
-// TODO: リンター使う
 
-const roughTimesCount = 20;
+// TODO: リンター使う
 
 const TaskTimeCalculator: React.FC = () => {
   const [roughEstimateTime, setRoughEstimateTime] = useState<number>(0);
-  const [designTime, setDesignTime] = useState<number>(0);
-  const [testTime, setTestTime] = useState<number>(0);
+  const [additionalElements, setAdditionalElements] = useState(initialAdditionalElements);
 
-  const totalTime = roughEstimateTime + designTime + testTime;
+  const handleChange = (index: number) => {  
+    setAdditionalElements(prevState => prevState.map((item, i) =>
+      i === index ? {...item, active: !item.active} : item
+    ));
+  };
+
+  const totalAdditionalTime = additionalElements.reduce((total, item) => total + (item.active ? item.value : 0), 0);
+  const totalTime = roughEstimateTime + totalAdditionalTime;
   const nearestFibonacci = findNearestFibonacci(totalTime);
 
   return (
     <div style={{display: "flex", flexDirection: "column"}}>
-      <div>
-        <label>予想時間: </label>
-        <div style={{display: "flex", flexDirection: "row"}}>
+      <div style={{display: "flex", flexDirection: "row"}}>
+        <label className={styles.label}>予想時間: </label>
+        <div style={{display: "flex", flexDirection: "row", flexWrap: "wrap"}}>
           {Array.from({ length: roughTimesCount }, (_, i) => i + 1).map((value) => (
             <TimeButton
               key={value}
@@ -41,8 +45,17 @@ const TaskTimeCalculator: React.FC = () => {
           ))}
         </div>
       </div>
-      <CheckboxInput label="デザイン" value={designDefaultTime} setTime={setDesignTime} />
-      <CheckboxInput label="テスト" value={testDefaultTime} setTime={setTestTime} />
+      {additionalElements.map((item, index) => (
+        <div key={index}>
+          <label className={styles.label}>{item.label} {item.value}: </label>
+          <input
+            type="checkbox"
+            className={styles.size}
+            checked={item.active}
+            onChange={() => handleChange(index)}
+          />
+        </div>
+      ))}
       <p>合計時間: {totalTime}</p>
       <p>最終結果: {nearestFibonacci}</p>
     </div>

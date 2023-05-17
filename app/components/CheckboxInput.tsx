@@ -1,9 +1,7 @@
 import React from 'react';
 
 interface CheckboxInputProps {
-  label: string;
-  value: number;
-  setTime: (time: number) => void;
+  onClick: () => void;
 }
 
 const CheckboxInput: React.FC<CheckboxInputProps> = ({ label, value, setTime }) => {
