@@ -3,23 +3,19 @@ import styles from './button.module.css'
 
 interface TimeButtonProps {
   label: string
+  isActive: boolean
   value: number
   setTime: (time: number) => void
 }
 
-const TimeButton: React.FC<TimeButtonProps> = ({ label, value, setTime }) => {
-  const [isActive, setIsActive] = useState(false)
-
-  const handleClick = () => {
-    setIsActive(!isActive)
-    setTime(value)
-  }
-
+const TimeButton: React.FC<TimeButtonProps> = ({ label, isActive, value, setTime }) => {
   const backgroundColor = isActive ? 'orange' : 'white'
 
   return (
     <div
-      onClick={handleClick}
+      onClick={() => {
+        setTime(value)
+      }}
       className={styles.size}
       style={{
         backgroundColor,

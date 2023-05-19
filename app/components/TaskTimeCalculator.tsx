@@ -40,6 +40,7 @@ const TaskTimeCalculator: React.FC = () => {
             <TimeButton
               key={value}
               label={value.toString()}
+              isActive={value === roughEstimateTime}
               value={value}
               setTime={setRoughEstimateTime}
             />
